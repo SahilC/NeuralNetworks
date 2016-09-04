@@ -88,9 +88,34 @@ class Perceptron:
         self.processInput()
         self.plotBoundary()
 
+    def trainLMS(self,a = 1,b = 0):
+        self.processInput()
+        e = 1
+        k = 0
+        while True:
+            k += 1
+            e = 0
+            for i in xrange(len(self.x)):
+                val = np.sum(self.w*self.x[i])
+                #self.plotBoundary()
+                #print val
+                update = (b - val)
+                #print update
+                self.w[0] += a*update*self.x[i,0]
+                self.w[1] += a*update*self.x[i,1]
+                self.w[2] += a*update*self.x[i,2]
+                if np.sum(a*update*self.x[i]**2) < 0.01:
+                    self.plotBoundary()
+                    print k
+                    return
+        print k
+        self.processInput()
+        self.plotBoundary()
+
 if __name__ == '__main__':
     x = np.array([[2, 7, 1], [8, 1, 1], [7, 5, 1], [6, 3, 1],[7, 8, 1],[5, 9, 1],[4, 5,1],[4, 2, 1],[-1, -1,1],[1, 3,1], [3, -2,1], [5, 3.25,1], [2, 4,1],[7, 1, 1]])
     y = np.array([1, 1, 1, 1, 1, 1, 1,-1, -1, -1, -1, -1, -1,-1])
     p = Perceptron(x,y)
     #p.plotBoundary()
-    p.trainRelaxation(0.005,1)
+    #p.trainRelaxation(0.005,1)
+    p.trainLMS(0.005,1)
