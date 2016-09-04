@@ -9,8 +9,8 @@ class Perceptron:
         self.y = y
         #self.w = np.random.random((self.dim,1))
         #print self.w.shape
-        self.w = np.random.random((self.dim))
-        #self.w = np.array([1,1,1])
+        #self.w = np.random.random((self.dim))
+        self.w = np.array([1.0,1.0,1.0])
 
     def plotBoundary(self):
         a = self.x[:,0]
@@ -28,7 +28,8 @@ class Perceptron:
     def processInput(self):
         self.x[self.y < 0] = -1*self.x[self.y < 0]
 
-    def train(self):
+    #Train a single perceptron with single sample training
+    def train(self,a = 1, b = 0):
         # out =  np.abs(np.sign(np.sum(self.w.transpose()*self.x,axis=1)) - self.y)
         # val = np.sum(out)
         # #print self.w
@@ -54,11 +55,36 @@ class Perceptron:
             k += 1
             for i in xrange(len(self.x)):
                 val = np.sum(self.w*self.x[i])
-                if val < 0:
-                    self.w[0] += self.x[i,0]
-                    self.w[1] += self.x[i,1]
-                    self.w[2] += self.x[i,2]
+                if val < b:
+                    self.w[0] += a*self.x[i,0]
+                    self.w[1] += a*self.x[i,1]
+                    self.w[2] += a*self.x[i,2]
                     e += 1
+        print k
+        self.processInput()
+        self.plotBoundary()
+
+    #Train a single perceptron with relaxation
+    def trainRelaxation(self,a = 1, b = 0 ):
+        self.processInput()
+        e = 1
+        k = 0
+        while e > 0:
+            k += 1
+            e = 0
+            for i in xrange(len(self.x)):
+                val = np.sum(self.w*self.x[i])
+                #self.plotBoundary()
+                #print val
+                if val < b:
+                    sumVal = np.sum(self.x[i]**2)
+                    update = (b - val)/sumVal
+                    #print update
+                    self.w[0] += a*self.x[i,0]
+                    self.w[1] += a*self.x[i,1]
+                    self.w[2] += a*self.x[i,2]
+                    e += 1
+        print k
         self.processInput()
         self.plotBoundary()
 
@@ -67,4 +93,4 @@ if __name__ == '__main__':
     y = np.array([1, 1, 1, 1, 1, 1, 1,-1, -1, -1, -1, -1, -1,-1])
     p = Perceptron(x,y)
     #p.plotBoundary()
-    p.train()
+    p.trainRelaxation(0.005,1)
