@@ -106,3 +106,9 @@ class Perceptron:
                     self.processInput()
                     self.plotBoundary()
                     return
+if __name__ == '__main__':
+    # y = np.array([1, 1, 1, 1, 1, 1, 1,-1, -1, -1, -1, -1, -1,-1])
+    # p = Perceptron(x,y)
+    # #p.plotBoundary()
+    # #p.trainRelaxation(0.005,1)
+    # p.plotBoundary()
