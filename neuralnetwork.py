@@ -15,6 +15,7 @@ class NeuralNetwork:
             hidden_layer_out.append(neuron.out_value(x))
 
         output_layer_out = []
+        hidden_layer_out.append(1)
         for neuron in self.output_layer:
             h = neuron.out_value(hidden_layer_out)
             output_layer_out.append(h)
@@ -34,13 +35,13 @@ class NeuralNetwork:
                     hidden_layer_out.append(neuron.out_value(input_val[k]))
 
                 output_layer_out = []
+                hidden_layer_out.append(1)
                 for neuron in self.output_layer:
                     h = neuron.out_value(hidden_layer_out)
                     output_layer_out.append(h)
                     total_error += neuron.calculate_error(output_val[k])
 
                 #print total_error
-
                 delta_k = []
                 for neuron in self.output_layer:
                     delta_k.append(neuron.update_weight_hidden(hidden_layer_out,output_val[k]))
@@ -50,16 +51,22 @@ class NeuralNetwork:
 
 
 if __name__ == '__main__':
-    n  = NeuralNetwork(2,2,1)
+    n  = NeuralNetwork(1,2,1)
     # input_val = np.array([[-5],[-1],[1],[6]])
     # output_val = np.array([0,1,1,0])
-    input_val = np.array([[2, 7], [8, 1], [7, 5], [6, 3],[7, 8],[5, 9],[4, 5],[4, 2],[-1, -1],[1, 3], [3, -2], [5, 3.25], [2, 4],[7, 1]])
-    output_val = np.array([1,1,1,1,1,1,1,0,0,0,0,0,0,0])
+    #input_val = np.array([[2, 7,1], [8, 1,1], [7, 5,1], [6, 3,1],[7, 8,1],[5, 9,1],[4, 5,1],[4, 2,1],[-1, -1,1],[1, 3,1], [3, -2,1], [5, 3.25,1], [2, 4,1],[7, 1,1]])
+    output_val = np.array([1,1,0,0,1,1,1,1,0,1,1,1,0,1])
+    input_val = np.array([[7,1], [1, 1], [-5,1], [-3,1],[3,1],[-8,1],[5,1],[2,1],[-1,1],[3,1], [-9,1], [3.25,1], [-4,1],[0,1]])
+    #input_val = np.array([[1,1,1],[1,0,1],[0,1,1],[0,0,1]])
+    #output_val = np.array([0,1,1,0])
     n.train(input_val,output_val)
-    # n.feed_forward([6,3])
-    # n.feed_forward([2,7])
-    # n.feed_forward([7,5])
-    # n.feed_forward([-1,-1])
+    #n.feed_forward([0,1,1])
+    n.feed_forward([3,1])
+    n.feed_forward([-2,1])
+    n.feed_forward([7,1])
+    n.feed_forward([5,1])
+    n.feed_forward([-1,1])
+    n.feed_forward([-6,1])
 
         #print output_layer_out
 

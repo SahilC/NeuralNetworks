@@ -5,8 +5,8 @@ def sigmoid(x):
   return 1 / (1 + math.exp(-x))
 
 class Neuron:
-    def __init__(self, dim, learning_rate = 0.01):
-        self.w = np.random.random((dim))
+    def __init__(self, dim, learning_rate = 0.1):
+        self.w = np.random.random((dim+1))
         self.learning_rate = learning_rate
         self.y = 0
 
@@ -29,7 +29,7 @@ class Neuron:
     def update_weight_hidden(self,x,t):
         delta_k = (self.y - t)*self.y*(1 - self.y)
         for i in xrange(len(self.w)):
-            self.w[i] = self.w[i] + self.learning_rate*delta_k*x[i]
+            self.w[i] = self.w[i] - self.learning_rate*delta_k*x[i]
 
         # print 'UPDATED_HIDDEN'
         # print self.y
@@ -52,8 +52,9 @@ class Neuron:
 
         # print 'UPDATE_OUT'
         # print val
-
+        # print '----------------'
         for i in xrange(len(self.w)):
+            # print self.y*(1-self.y)*x[i]
             self.w[i] = self.w[i] - self.learning_rate*val*self.y*(1-self.y)*x[i]
 
         # print self.w
