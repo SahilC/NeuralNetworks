@@ -7,7 +7,7 @@ if __name__ == '__main__':
     num_hidden = 2
     num_out = 1
     hidden_layer = [Neuron(input_val.shape[1]) for i in xrange(num_hidden)]
-    output_layer = [Neuron(input_val.shape[1]) for i in xrange(num_out)]
+    output_layer = [Neuron(num_hidden) for i in xrange(num_out)]
 
     i = 0
     for val in input_val:
