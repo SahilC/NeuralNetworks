@@ -30,8 +30,8 @@ class Neuron:
 
     def calculate_error(self,t):
         return (0.5*(self.y - t)**2)
-        
-    def update_weight_input(self,x, h,neuron_hidden, neuron_out,delta_k):
+
+    def update_weight_input(self,x,neuron_hidden, neuron_out,delta_k):
         val = 0
         for j in xrange(len(neuron_hidden)):
             for n in xrange(len(neuron_out)):

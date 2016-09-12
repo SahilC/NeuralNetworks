@@ -18,6 +18,9 @@ if __name__ == '__main__':
         output_layer_out = []
         for neuron in output_layer:
             output_layer_out.append(neuron.out_value(hidden_layer_out))
+            
+
+
 
         #print output_layer_out
 
