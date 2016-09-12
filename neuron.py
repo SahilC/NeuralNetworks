@@ -28,10 +28,11 @@ class Neuron:
             self.w[i] = self.w[i] - self.learning_rate*delta_k*x[i]
         return delta_k
 
-    def update_weight_input(self,x, h, neuron_out,delta_k):
+    def update_weight_input(self,x, h,neuron_hidden, neuron_out,delta_k):
         val = 0
-        for n in xrange(len(neuron_out)):
-            val += np.sum(delta_k[n]*neuron_out[n].w)
+        for j in xrange(len(neuron_hidden)):
+            for n in xrange(len(neuron_out)):
+                val += delta_k[n]*neuron_out[n].w[j]
 
         for i in xrange(len(self.w)):
-            self.w[i] = self.w[i] - self.learning_rate*delta_k*x[i]
+            self.w[i] = self.w[i] - self.learning_rate*val*self.y*(1-self.y)*x[i]
