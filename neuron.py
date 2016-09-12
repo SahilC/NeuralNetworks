@@ -28,6 +28,9 @@ class Neuron:
             self.w[i] = self.w[i] - self.learning_rate*delta_k*x[i]
         return delta_k
 
+    def calculate_error(self,t):
+        return (0.5*(self.y - t)**2)
+        
     def update_weight_input(self,x, h,neuron_hidden, neuron_out,delta_k):
         val = 0
         for j in xrange(len(neuron_hidden)):
