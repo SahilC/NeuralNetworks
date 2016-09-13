@@ -6,7 +6,7 @@ class InputProcessor:
     def read_processed_input(self):
         with open(self.file_name) as f:
             digits = []
-            out_value = np.array([])
+            out_value = []
             while True:
                 lines = f.readlines(8192)
                 if not lines:
@@ -17,13 +17,15 @@ class InputProcessor:
                     temp = map(int,line.split(','))
                     #print temp[:-1]
                     if temp[-1] < 3:
-                        out_value = np.append(out_value,[temp[-1]],axis=0)
+                        val = [int(x) for x in bin(temp[-1])[2:]]
+                        val = [0 for _ in xrange(2-len(val))] + val
+                        out_value.append(val)
                         temp = temp[:-1]
                         temp.append(1)
                         digits.append(temp)
 
-
-        return {'input':np.array(digits),'output':out_value}
+        #print np.array(out_value)
+        return {'input':np.array(digits),'output':np.array(out_value)}
 
     def read_input(self):
         with open(self.file_name) as f:
