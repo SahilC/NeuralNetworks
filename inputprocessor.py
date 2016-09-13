@@ -45,7 +45,16 @@ class InputProcessor:
                     if l == 32:
                         digit.append(map(int,list(line)))
                     elif l == 1:
-                        digits.append(digit)
-                        print line
+                        tmp = []
+                        for i in xrange(0,len(digit),4):
+                            for j in xrange(0,len(digit[i]),4):
+                                val = 0
+                                for k in xrange(0,4):
+                                    if (i+k) < len(digit):
+                                        val += sum(digit[i+k][j:j+4])
+                                tmp.append(val)
+                        digits.append(tmp)
                         digit = []
                         out_value.append(int(line))
+
+            return {'input':np.array(digits),'output':np.array(out_value)}
