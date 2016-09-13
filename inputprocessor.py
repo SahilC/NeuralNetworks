@@ -3,6 +3,12 @@ class InputProcessor:
     def __init__(self,file_name):
         self.file_name = file_name
 
+    def process_output(self,val):
+        binary = [int(x) for x in bin(val)[2:]]
+        binary = [0 for _ in xrange(2-len(binary))] + binary
+
+        return binary
+
     def read_processed_input(self):
         with open(self.file_name) as f:
             digits = []
@@ -17,9 +23,7 @@ class InputProcessor:
                     temp = map(int,line.split(','))
                     #print temp[:-1]
                     if temp[-1] < 3:
-                        val = [int(x) for x in bin(temp[-1])[2:]]
-                        val = [0 for _ in xrange(2-len(val))] + val
-                        out_value.append(val)
+                        out_value.append(self.process_output(temp[-1]))
 
                         #normalize the input from 0 to 1
                         temp = [(x/16) for x in temp[:-1]]
@@ -33,12 +37,12 @@ class InputProcessor:
         with open(self.file_name) as f:
             digits = []
             out_value = []
+            digit = []
             while True:
                 lines = f.readlines(8192)
                 if not lines:
                     break
 
-                digit = []
                 for line in lines:
                     line = line.strip()
                     l = len(line)
@@ -53,8 +57,9 @@ class InputProcessor:
                                     if (i+k) < len(digit):
                                         val += sum(digit[i+k][j:j+4])
                                 tmp.append(val)
-                        digits.append(tmp)
                         digit = []
-                        out_value.append(int(line))
-
+                        if int(line) < 3:
+                            digits.append(tmp)
+                            out_value.append(self.process_output(int(line)))
+            #print digits
             return {'input':np.array(digits),'output':np.array(out_value)}
