@@ -28,7 +28,7 @@ class NeuralNetwork:
         iter = 0
         while iter < 10000:
             iter += 1
-            #print iter
+            print iter
             for k in xrange(len(input_val)):
                 hidden_layer_out = []
                 total_error = 0
@@ -43,10 +43,10 @@ class NeuralNetwork:
                     output_layer_out.append(h)
                     total_error += neuron.calculate_error(output_val[k])
 
-                print total_error
+                #print total_error
                 delta_k = []
-                for neuron in self.output_layer:
-                    delta_k.append(neuron.update_weight_hidden(hidden_layer_out,output_val[k]))
+                for n in xrange(len(self.output_layer)):
+                    delta_k.append(self.output_layer[n].update_weight_hidden(hidden_layer_out,output_val[k][n]))
 
                 for n in xrange(len(self.hidden_layer)):
                     self.hidden_layer[n].update_weight_input(input_val[k],self.hidden_layer,n,self.output_layer,delta_k)
