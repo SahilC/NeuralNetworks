@@ -1,4 +1,5 @@
 from neuron import Neuron
+from inputprocessor import InputProcessor
 import numpy as np
 
 class NeuralNetwork:
@@ -51,22 +52,25 @@ class NeuralNetwork:
 
 
 if __name__ == '__main__':
-    n  = NeuralNetwork(1,2,1)
+    ip = InputProcessor('data/optdigits.tra')
+    #ip.read_input()
+    print ip.read_processed_input()
+    #n  = NeuralNetwork(1,2,1)
     # input_val = np.array([[-5],[-1],[1],[6]])
     # output_val = np.array([0,1,1,0])
     #input_val = np.array([[2, 7,1], [8, 1,1], [7, 5,1], [6, 3,1],[7, 8,1],[5, 9,1],[4, 5,1],[4, 2,1],[-1, -1,1],[1, 3,1], [3, -2,1], [5, 3.25,1], [2, 4,1],[7, 1,1]])
-    output_val = np.array([1,1,0,0,1,1,1,1,0,1,1,1,0,1])
-    input_val = np.array([[7,1], [1, 1], [-5,1], [-3,1],[3,1],[-8,1],[5,1],[2,1],[-1,1],[3,1], [-9,1], [3.25,1], [-4,1],[0,1]])
+    #output_val = np.array([1,1,0,0,1,1,1,1,0,1,1,1,0,1])
+    #input_val = np.array([[7,1], [1, 1], [-5,1], [-3,1],[3,1],[-8,1],[5,1],[2,1],[-1,1],[3,1], [-9,1], [3.25,1], [-4,1],[0,1]])
     #input_val = np.array([[1,1,1],[1,0,1],[0,1,1],[0,0,1]])
     #output_val = np.array([0,1,1,0])
-    n.train(input_val,output_val)
+    #n.train(input_val,output_val)
     #n.feed_forward([0,1,1])
-    n.feed_forward([3,1])
-    n.feed_forward([-2,1])
-    n.feed_forward([7,1])
-    n.feed_forward([5,1])
-    n.feed_forward([-1,1])
-    n.feed_forward([-6,1])
+    #n.feed_forward([3,1])
+    #n.feed_forward([-2,1])
+    #n.feed_forward([7,1])
+    #n.feed_forward([5,1])
+    #n.feed_forward([-1,1])
+    #n.feed_forward([-6,1])
 
         #print output_layer_out
 
