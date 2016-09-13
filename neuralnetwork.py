@@ -64,7 +64,7 @@ if __name__ == '__main__':
     nh = dataset['input'].shape[0]/(alpha*(dataset['input'].shape[1]+np.unique(dataset['output']).shape[0]))
     #print (alpha*(dataset['input'].shape[1]+np.unique(dataset['output']).shape[0]))
     #print dataset['input'].shape[0]
-    n  = NeuralNetwork(dataset['input'].shape[1]-1, nh ,np.unique(dataset['output']).shape[0])
+    n  = NeuralNetwork(dataset['input'].shape[1]-1, nh ,np.unique(dataset['output']).shape[0]-1)
     # input_val = np.array([[-5],[-1],[1],[6]])
     # output_val = np.array([0,1,1,0])
     #input_val = np.array([[2, 7,1], [8, 1,1], [7, 5,1], [6, 3,1],[7, 8,1],[5, 9,1],[4, 5,1],[4, 2,1],[-1, -1,1],[1, 3,1], [3, -2,1], [5, 3.25,1], [2, 4,1],[7, 1,1]])

@@ -6,7 +6,7 @@ def sigmoid(x):
 
 class Neuron:
     def __init__(self, dim, learning_rate = 0.1):
-        self.w = np.random.random((dim+1))
+        self.w = -1+2*np.random.random((dim+1))
         self.learning_rate = learning_rate
         self.y = 0
 
@@ -21,6 +21,7 @@ class Neuron:
     def out_value(self,x):
         # print self.w
         # print x
+        #print self.sum_value(x)
         self.y = sigmoid(self.sum_value(x))
         # print self.y
         # print '========'

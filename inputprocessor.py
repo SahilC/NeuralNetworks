@@ -20,7 +20,9 @@ class InputProcessor:
                         val = [int(x) for x in bin(temp[-1])[2:]]
                         val = [0 for _ in xrange(2-len(val))] + val
                         out_value.append(val)
-                        temp = temp[:-1]
+
+                        #normalize the input from 0 to 1
+                        temp = [(x/16) for x in temp[:-1]]
                         temp.append(1)
                         digits.append(temp)
 
