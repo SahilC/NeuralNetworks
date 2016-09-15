@@ -16,6 +16,7 @@ class Neuron:
         # print self.w*x
         # print np.sum(self.w*x)
         # print '-------------'
+        # print "NetJ:",np.sum(self.w*x)
         return np.sum(self.w*x)
 
     def out_value(self,x):
@@ -23,7 +24,9 @@ class Neuron:
         # print x
         #print self.sum_value(x)
         self.y = sigmoid(self.sum_value(x))
-        # print self.y
+        # print "X:",x
+        # print "W:",self.w
+        # print "Y:",self.y
         # print '========'
         return self.y
 

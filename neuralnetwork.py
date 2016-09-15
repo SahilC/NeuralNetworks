@@ -27,9 +27,9 @@ class NeuralNetwork:
     def train(self,input_val,output_val):
         i = 0
         iter = 0
-        while iter < 500:
+        while iter < 100:
             iter += 1
-            print iter
+            #print iter
             for k in xrange(len(input_val)):
                 hidden_layer_out = []
                 total_error = 0
@@ -75,13 +75,15 @@ if __name__ == '__main__':
     #print dataset['input'].shape[1]
     #print np.unique(dataset['output']).shape[0]
     #Credits for this heuristic for number of hidden layer neurons http://stats.stackexchange.com/questions/181/how-to-choose-the-number-of-hidden-layers-and-nodes-in-a-feedforward-neural-netw
-    alpha = 2
-    nh = dataset['input'].shape[0]/(alpha*(dataset['input'].shape[1]+np.unique(dataset['output']).shape[0]))
+    #alpha = 2
+    #nh = dataset['input'].shape[0]/(alpha*(dataset['input'].shape[1]+np.unique(dataset['output']).shape[0]))
     #print (alpha*(dataset['input'].shape[1]+np.unique(dataset['output']).shape[0]))
     #print dataset['input'].shape[0]
     #print dataset['input'].shape[1]
-    n  = NeuralNetwork(dataset['input'].shape[1]-1, nh ,np.unique(dataset['output']).shape[0])
-    n.run_validation(cvset['input'],cvset['output'])
+    for nh in xrange(2,8):
+        print nh
+        n  = NeuralNetwork(dataset['input'].shape[1]-1, nh ,np.unique(dataset['output']).shape[0])
+        n.run_validation(cvset['input'],cvset['output'])
     # input_val = np.array([[-5],[-1],[1],[6]])
     # output_val = np.array([0,1,1,0])
     #input_val = np.array([[2, 7,1], [8, 1,1], [7, 5,1], [6, 3,1],[7, 8,1],[5, 9,1],[4, 5,1],[4, 2,1],[-1, -1,1],[1, 3,1], [3, -2,1], [5, 3.25,1], [2, 4,1],[7, 1,1]])
@@ -89,8 +91,15 @@ if __name__ == '__main__':
     #input_val = np.array([[7,1], [1, 1], [-5,1], [-3,1],[3,1],[-8,1],[5,1],[2,1],[-1,1],[3,1], [-9,1], [3.25,1], [-4,1],[0,1]])
     #input_val = np.array([[1,1,1],[1,0,1],[0,1,1],[0,0,1]])
     #output_val = np.array([0,1,1,0])
-    n.train(dataset['input'],dataset['output'])
-    n.run_validation(cvset['input'],cvset['output'])
+        n.train(dataset['input'],dataset['output'])
+        # print 'HIDDEN LAYER WEIGHTS'
+        # for h in n.hidden_layer:
+        #     print h.w
+        #     print '==========='
+        # print 'OUT LAYER WEIGHTS'
+        # for h in n.output_layer:
+        #     print h.w
+        n.run_validation(cvset['input'],cvset['output'])
     pickle.dumps(n)
     # n.feed_forward(cvset['input'][0])
     # n.feed_forward(cvset['input'][1])
